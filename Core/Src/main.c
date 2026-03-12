@@ -122,22 +122,26 @@ int main(void)
   while (1)
   {
 	  // Lógica Eje Y
-	  if (adc_buffer[0] > 3000) {
+	  if (adc_buffer[0] > 3000)
+	  {
 		  sprintf(msg_terminal, "Control 1 (Joystick): \"Arriba\"r\n");
 		  HAL_UART_Transmit(&huart2, (uint8_t*)msg_terminal, strlen(msg_terminal), 10);
-	  } else if (adc_buffer[0] < 1000) {
+	  } else if (adc_buffer[0] < 1000)
+	  {
 		  sprintf(msg_terminal, "Control 1 (Joystick): \"Abajo\"r\n");
 		  HAL_UART_Transmit(&huart2, (uint8_t*)msg_terminal, strlen(msg_terminal), 10);
 	  }
 
 	  // Lógica Eje X
-	  	  if (adc_buffer[1] > 3000) {
-	  		  sprintf(msg_terminal, "Control 1 (Joystick): \"Derecha\"r\n");
-	  		  HAL_UART_Transmit(&huart2, (uint8_t*)msg_terminal, strlen(msg_terminal), 10);
-	  	  } else if (adc_buffer[1] < 1000) {
-	  		  sprintf(msg_terminal, "Control 1 (Joystick): \"Izquierda\"r\n");
-	  		  HAL_UART_Transmit(&huart2, (uint8_t*)msg_terminal, strlen(msg_terminal), 10);
-	  	  }
+	  if (adc_buffer[1] > 3000)
+	  {
+		  sprintf(msg_terminal, "Control 1 (Joystick): \"Derecha\"r\n");
+		  HAL_UART_Transmit(&huart2, (uint8_t*)msg_terminal, strlen(msg_terminal), 10);
+	  } else if (adc_buffer[1] < 1000)
+	  {
+		  sprintf(msg_terminal, "Control 1 (Joystick): \"Izquierda\"r\n");
+		  HAL_UART_Transmit(&huart2, (uint8_t*)msg_terminal, strlen(msg_terminal), 10);
+	  }
 
 
     /* USER CODE END WHILE */
