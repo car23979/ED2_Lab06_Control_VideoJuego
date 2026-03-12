@@ -52,7 +52,9 @@ UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
-
+uint32_t adc_buffer[2];
+uint8_t ry_byte;
+char msg_terminal[60];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
