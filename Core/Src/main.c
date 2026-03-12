@@ -143,6 +143,8 @@ int main(void)
 		  HAL_UART_Transmit(&huart2, (uint8_t*)msg_terminal, strlen(msg_terminal), 10);
 	  }
 
+	  HAL_Delay(150); // Delay para evitar saturar terminal
+
 
     /* USER CODE END WHILE */
 
