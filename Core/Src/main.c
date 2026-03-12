@@ -26,7 +26,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <stdio.h>
+#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -120,6 +121,11 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  // Lógica Eje Y
+	  if (adc_buffer[0] > 3000) {
+		  sprintf
+	  }
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
