@@ -52,9 +52,9 @@ UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
-uint32_t adc_buffer[2];
-uint8_t ry_byte;
-char msg_terminal[60];
+uint32_t adc_buffer[2]; // [0]: Eje Y, [1]: Eje X
+uint8_t ry_byte;		// Almacena el caracter recibido del arduino
+char msg_terminal[60];	// Buffer para enviar mensajes al monitor
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
