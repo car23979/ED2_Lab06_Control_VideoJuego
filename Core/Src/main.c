@@ -13,6 +13,11 @@
   * in the root directory of this software component.
   * If no LICENSE file comes with this software, it is provided AS-IS.
   *
+  * Laboratorio 6 - Control de Video Juego
+  *
+  * Autor: David Carranza
+  * Carnet: 23979
+  *
   ******************************************************************************
   */
 /* USER CODE END Header */
