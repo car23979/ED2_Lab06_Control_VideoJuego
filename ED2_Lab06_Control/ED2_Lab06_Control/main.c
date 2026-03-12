@@ -6,8 +6,9 @@
  * Carnet : 23979
  */ 
 
+#define F_CPU 16000000ul
 #include <avr/io.h>
-
+#include <util/delay.h>
 
 int main(void)
 {
