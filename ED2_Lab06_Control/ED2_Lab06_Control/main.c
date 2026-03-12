@@ -10,6 +10,10 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
+// Prototipos de funciones
+void UART_Init(uint32_t baud);
+void UART_sendChar(char data);
+
 int main(void)
 {
     /* Replace with your application code */
