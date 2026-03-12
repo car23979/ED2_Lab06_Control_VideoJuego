@@ -108,6 +108,12 @@ int main(void)
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
 
+  // Iniciar el ADC en modo DMA para uso de los 2 canales
+  HAL_ADC_Start_DMA(&hadc1, adc_buffer, 2);
+
+  // Iniciar la recepción de datos por interrupción del USART3
+  HAL_UART_Receive_IT(&huart3, &rx_byte, 1);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
