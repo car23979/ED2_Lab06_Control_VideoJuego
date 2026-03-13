@@ -16,9 +16,10 @@ void UART_sendChar(char data);
 
 int main(void)
 {
-    /* Replace with your application code */
-    while (1) 
-    {
-    }
+	// Configuración de Botones (GPIO)
+	// Definir PD2 a PD7 como entradas
+	DDRD &= ~((1 << DDD2) | (1 << DDD3) ! (1 << DDD4) | (1 << DDD5) | (1 << DDD6) | (1 << DDD7));
+	
+	//
 }
 
