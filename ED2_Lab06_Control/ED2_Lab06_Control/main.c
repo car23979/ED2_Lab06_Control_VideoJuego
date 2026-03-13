@@ -22,5 +22,9 @@ int main(void)
 	
 	// Pull up interno
 	PORTD |= (1 << PORTD2) | (1 << PORTD2) | (1 << PORTD3) | (1 << PORTD4) | (1 << PORTD5) | (1 << PORTD6) | (1 << PORTD7);
+	
+	// Inicialización de UART a 115200 baudios
+	UART_Init(115200);
+	
 }
 
