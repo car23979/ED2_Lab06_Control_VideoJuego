@@ -18,7 +18,7 @@ int main(void)
 {
 	// Configuración de Botones (GPIO)
 	// Definir PD2 a PD7 como entradas
-	DDRD &= ~((1 << DDD2) | (1 << DDD3) ! (1 << DDD4) | (1 << DDD5) | (1 << DDD6) | (1 << DDD7));
+	DDRD &= ~((1 << DDD2) | (1 << DDD3) | (1 << DDD4) | (1 << DDD5) | (1 << DDD6) | (1 << DDD7));
 	
 	// Pull up interno
 	PORTD |= (1 << PORTD2) | (1 << PORTD2) | (1 << PORTD3) | (1 << PORTD4) | (1 << PORTD5) | (1 << PORTD6) | (1 << PORTD7);
@@ -33,28 +33,28 @@ int main(void)
 		// Botón arriba (PD2)
 		if (!(PIND & (1 << PIND2)))
 		{
-			UART_sendChar('Up');
+			UART_sendChar('U');
 			_delay_ms(200);
 		}
 		
 		// Botón abajo (PD3)
 		if (!(PIND & (1 << PIND3)))
 		{
-			UART_sendChar('Down');
+			UART_sendChar('D');
 			_delay_ms(200);
 		}
 		
 		// Botón izquierda (PD4)
 		if (!(PIND & (1 << PIND4)))
 		{
-			UART_sendChar('Left');
+			UART_sendChar('L');
 			_delay_ms(200);
 		}
 		
 		// Botón derecha (PD5)
 		if (!(PIND & (1 << PIND5)))
 		{
-			UART_sendChar('Right');
+			UART_sendChar('R');
 			_delay_ms(200);
 		}
 		
@@ -90,3 +90,12 @@ void UART_Init(uint32_t baud)
 	UCSR0C = (1 << UCSZ01) | (1 << UCSZ00); 
 }
 
+// Función para transmitir un caracter
+void UART_sendChar(char data) 
+{
+	// Esperar a que el bugger de transmisión este vació
+	while (!(UCSR0A & (1 << UDRE0)));
+	
+	// Poner dato en el registro para enviarlo
+	UDR0 = data;
+}
