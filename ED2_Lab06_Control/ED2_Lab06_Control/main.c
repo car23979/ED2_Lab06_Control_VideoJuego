@@ -58,6 +58,19 @@ int main(void)
 			_delay_ms(200);
 		}
 		
+		// Botón A (PD6)
+		if (!(PIND & (1 << PIND6)))
+		{
+			UART_sendChar('A');
+			_delay_ms(200);
+		}
+		
+		// Botón B (PD7)
+		if (!(PIND & (1 << PIND7)))
+		{
+			UART_sendChar('B');
+			_delay_ms(200);
+		}
 	}
 }
 
