@@ -37,6 +37,12 @@ int main(void)
 			_delay_ms(200);
 		}
 		
+		// Botón abajo (PD3)
+		if (!(PIND & (1 << PIND3)))
+		{
+			UART_sendChar('Down');
+			_delay_ms(200);
+		}
 	}
 }
 
