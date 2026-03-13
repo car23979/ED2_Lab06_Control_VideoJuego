@@ -83,6 +83,9 @@ void UART_Init(uint32_t baud)
 	UBRR0H = (uint8_t)(ubrr_value >> 8);
 	UBRR0L = (uint8_t)ubrr_value;
 	
-	//  
+	// Habilitar transmisor (TX)
+	UCSR0B = (1 << TXEN0);
+	
+	 
 }
 
