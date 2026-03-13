@@ -44,17 +44,17 @@ int main(void)
 			_delay_ms(200);
 		}
 		
-		// Botón derecha (PD4)
+		// Botón izquierda (PD4)
 		if (!(PIND & (1 << PIND4)))
 		{
-			UART_sendChar('Right');
+			UART_sendChar('Left');
 			_delay_ms(200);
 		}
 		
-		// Botón izquierda (PD5)
+		// Botón derecha (PD5)
 		if (!(PIND & (1 << PIND5)))
 		{
-			UART_sendChar('Left');
+			UART_sendChar('Right');
 			_delay_ms(200);
 		}
 		
@@ -72,5 +72,17 @@ int main(void)
 			_delay_ms(200);
 		}
 	}
+}
+
+// Implementación de inicialización UART
+void UART_Init(uint32_t baud) 
+{
+	// Cálculo del valor UBRR para 115200 baudios a 16 MHz
+	uint16_t ubrr_value = (F_CPU / (16 * baud)) - 1;
+	
+	UBRR0H = (uint8_t)(ubrr_value >> 8);
+	UBRR0L = (uint8_t)ubrr_value;
+	
+	//  
 }
 
