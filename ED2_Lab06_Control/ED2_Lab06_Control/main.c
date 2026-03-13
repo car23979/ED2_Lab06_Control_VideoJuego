@@ -43,6 +43,13 @@ int main(void)
 			UART_sendChar('Down');
 			_delay_ms(200);
 		}
+		
+		// Botón derecha (PD4)
+		if (!(PIND & (1 << PIND4)))
+		{
+			UART_sendChar('Right');
+			_delay_ms(200);
+		}
 	}
 }
 
