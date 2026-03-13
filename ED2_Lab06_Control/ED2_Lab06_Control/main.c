@@ -26,5 +26,17 @@ int main(void)
 	// Inicialización de UART a 115200 baudios
 	UART_Init(115200);
 	
+	while(1)
+	{
+		// Se lee el registro PIND para detectar pulsaciones
+		
+		// Botón arriba (PD2)
+		if (!(PIND & (1 << PIND2)))
+		{
+			UART_sendChar('Up');
+			_delay_ms(200);
+		}
+		
+	}
 }
 
