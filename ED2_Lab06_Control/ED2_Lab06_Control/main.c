@@ -50,6 +50,14 @@ int main(void)
 			UART_sendChar('Right');
 			_delay_ms(200);
 		}
+		
+		// Botón izquierda (PD5)
+		if (!(PIND & (1 << PIND5)))
+		{
+			UART_sendChar('Left');
+			_delay_ms(200);
+		}
+		
 	}
 }
 
