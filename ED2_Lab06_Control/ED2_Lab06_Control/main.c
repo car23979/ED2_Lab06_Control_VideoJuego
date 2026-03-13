@@ -20,6 +20,7 @@ int main(void)
 	// Definir PD2 a PD7 como entradas
 	DDRD &= ~((1 << DDD2) | (1 << DDD3) ! (1 << DDD4) | (1 << DDD5) | (1 << DDD6) | (1 << DDD7));
 	
-	//
+	// Pull up interno
+	PORTD |= (1 << PORTD2) | (1 << PORTD2) | (1 << PORTD3) | (1 << PORTD4) | (1 << PORTD5) | (1 << PORTD6) | (1 << PORTD7);
 }
 
