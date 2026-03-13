@@ -86,6 +86,7 @@ void UART_Init(uint32_t baud)
 	// Habilitar transmisor (TX)
 	UCSR0B = (1 << TXEN0);
 	
-	 
+	// Configuración de formato para 8 bits de datos y un bit de parada
+	UCSR0C = (1 << UCSZ01) | (1 << UCSZ00); 
 }
 
