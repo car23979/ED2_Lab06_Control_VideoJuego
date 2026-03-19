@@ -53,9 +53,17 @@ UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
+
+// Variables para Control 1
 uint16_t valorEjeY = 0;
 uint16_t valorEjeX = 0;
+
+// Variables para control 2
 uint8_t rx_byte;		// Almacena el caracter recibido del arduino
+volatile uint_8t rx_data; // Guardar el dato para procesarlo
+volatile uint_8t nueva_accion_atmega = 0; // Bandera de interrupción
+
+// Buffer para la terminal
 char msg_terminal[60];	// Buffer para enviar mensajes al monitor
 /* USER CODE END PV */
 
