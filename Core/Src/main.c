@@ -139,7 +139,18 @@ int main(void)
 		switch(rx_data)
 		{
 		case 'U': sprintf(msg_terminal, "Control 2 (ATmega): \"Arriba\"\r\n");
+		case 'D': sprintf(msg_terminal, "Control 2 (ATmega): \"Abajo\"\r\n");
+		case 'L': sprintf(msg_terminal, "Control 2 (ATmega): \"Izquierda\"\r\n");
+		case 'R': sprintf(msg_terminal, "Control 2 (ATmega): \"Derecha\"\r\n");
+		case 'A': sprintf(msg_terminal, "Control 2 (ATmega): \"A\"\r\n");
+		case 'B': sprintf(msg_terminal, "Control 2 (ATmega): \"B\"\r\n");
+		default: msg_terminal[0] = '\0';
 		}
+
+		if (msg_terminal[0] != '\0') {
+			HAL_UART_Transmit(&huart2, (uint8_t*)msg_terminal, strnlen(msg_terminal), 100);
+		}
+
 	  }
 
 	  // Lógica Control 1
