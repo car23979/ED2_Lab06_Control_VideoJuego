@@ -60,11 +60,11 @@ uint16_t valorEjeX = 0;
 
 // Variables para control 2
 uint8_t rx_byte;		// Almacena el caracter recibido del arduino
-volatile uint_8t rx_data; // Guardar el dato para procesarlo
-volatile uint_8t nueva_accion_atmega = 0; // Bandera de interrupción
+volatile uint8_t rx_data; // Guardar el dato para procesarlo
+volatile uint8_t nueva_accion_atmega = 0; // Bandera de interrupción
 
-// Buffer para la terminal
-char msg_terminal[60];	// Buffer para enviar mensajes al monitor
+// Buffer para la terminal UART2
+char msg_terminal[80];	// Buffer para enviar mensajes al monitor
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -130,6 +130,19 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  // Lógica Control 2
+	  if (nueva_accion_atmega == 1)
+	  {
+		nueva_accion_atmega = 0; // Bajar bandera
+
+		// Formato control
+		switch(rx_data)
+		{
+		case 'U': sprintf(msg_terminal, "Control 2 (ATmega): \"Arriba\"\r\n");
+		}
+	  }
+
+	  // Lógica Control 1
 	  // 1. Iniciar el ADC manualmente
 	      HAL_ADC_Start(&hadc1);
 
@@ -149,19 +162,22 @@ int main(void)
 	      // --- Lógica de Impresión (Igual que antes pero con variables directas) ---
 	      if (valorEjeY > 2500) {
 	          sprintf(msg_terminal, "Control 1: \"Arriba\"\r\n");
+		      HAL_UART_Transmit(&huart2, (uint8_t*)msg_terminal, strlen(msg_terminal), 100);
 	      } else if (valorEjeY < 1000) {
 	          sprintf(msg_terminal, "Control 1: \"Abajo\"\r\n");
+		      HAL_UART_Transmit(&huart2, (uint8_t*)msg_terminal, strlen(msg_terminal), 100);
 	      } else if (valorEjeX > 2500) {
 	          sprintf(msg_terminal, "Control 1: \"Derecha\"\r\n");
+		      HAL_UART_Transmit(&huart2, (uint8_t*)msg_terminal, strlen(msg_terminal), 100);
 	      } else if (valorEjeX < 1000) {
 	          sprintf(msg_terminal, "Control 1: \"Izquierda\"\r\n");
+		      HAL_UART_Transmit(&huart2, (uint8_t*)msg_terminal, strlen(msg_terminal), 100);
 	      } else {
-	          // Opcional: imprimir centro para saber que funciona
 	          sprintf(msg_terminal, "Joystick en reposo\r\n");
 	      }
 
 	      HAL_UART_Transmit(&huart2, (uint8_t*)msg_terminal, strlen(msg_terminal), 100);
-	      HAL_Delay(250);
+	      HAL_Delay(150);
 
     /* USER CODE END WHILE */
 
