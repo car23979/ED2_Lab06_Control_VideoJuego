@@ -31,32 +31,51 @@ int main(void)
 		
 		if (!(PIND & (1 << PIND2))) {
 			UART_sendChar('U'); // Up
-			_delay_ms(300);     // Antirrebote (Debounce)
+			// BLOQUEO HASTA SOLTAR (Detección de flanco)
+			// Mientras el pin siga en LOW, nos quedamos aquí "esperando"
+			while (!(PIND & (1 << PIND2)));
+			_delay_ms(150);     // Antirrebote (Debounce)
+
 		}
 		
 		if (!(PIND & (1 << PIND3))) {
 			UART_sendChar('D'); // Down
-			_delay_ms(300);
+			// BLOQUEO HASTA SOLTAR (Detección de flanco)
+			// Mientras el pin siga en LOW, nos quedamos aquí "esperando"
+			while (!(PIND & (1 << PIND3)));
+			_delay_ms(150);
 		}
 		
 		if (!(PIND & (1 << PIND4))) {
 			UART_sendChar('L'); // Left
-			_delay_ms(300);
+			// BLOQUEO HASTA SOLTAR (Detección de flanco)
+			// Mientras el pin siga en LOW, nos quedamos aquí "esperando"
+			while (!(PIND & (1 << PIND4)));
+			_delay_ms(150);
 		}
 		
 		if (!(PIND & (1 << PIND5))) {
 			UART_sendChar('R'); // Right
-			_delay_ms(300);
+			// BLOQUEO HASTA SOLTAR (Detección de flanco)
+			// Mientras el pin siga en LOW, nos quedamos aquí "esperando"
+			while (!(PIND & (1 << PIND5)));
+			_delay_ms(150);
 		}
 		
 		if (!(PIND & (1 << PIND6))) {
 			UART_sendChar('A'); // Botón A
-			_delay_ms(300);
+			// BLOQUEO HASTA SOLTAR (Detección de flanco)
+			// Mientras el pin siga en LOW, nos quedamos aquí "esperando"
+			while (!(PIND & (1 << PIND6)));
+			_delay_ms(150);
 		}
 		
 		if (!(PIND & (1 << PIND7))) {
 			UART_sendChar('B'); // Botón B
-			_delay_ms(300);
+			// BLOQUEO HASTA SOLTAR (Detección de flanco)
+			// Mientras el pin siga en LOW, nos quedamos aquí "esperando"
+			while (!(PIND & (1 << PIND7)));
+			_delay_ms(150);
 		}
 	}
 }

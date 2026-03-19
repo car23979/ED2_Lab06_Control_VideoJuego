@@ -139,12 +139,19 @@ int main(void)
 		switch(rx_data)
 		{
 		case 'U': sprintf(msg_terminal, "Control 2 (ATmega): \"Arriba\"\r\n");
+		break;
 		case 'D': sprintf(msg_terminal, "Control 2 (ATmega): \"Abajo\"\r\n");
+		break;
 		case 'L': sprintf(msg_terminal, "Control 2 (ATmega): \"Izquierda\"\r\n");
+		break;
 		case 'R': sprintf(msg_terminal, "Control 2 (ATmega): \"Derecha\"\r\n");
+		break;
 		case 'A': sprintf(msg_terminal, "Control 2 (ATmega): \"A\"\r\n");
+		break;
 		case 'B': sprintf(msg_terminal, "Control 2 (ATmega): \"B\"\r\n");
+		break;
 		default: msg_terminal[0] = '\0';
+		break;
 		}
 
 		if (msg_terminal[0] != '\0')
