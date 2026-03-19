@@ -147,8 +147,9 @@ int main(void)
 		default: msg_terminal[0] = '\0';
 		}
 
-		if (msg_terminal[0] != '\0') {
-			HAL_UART_Transmit(&huart2, (uint8_t*)msg_terminal, strnlen(msg_terminal), 100);
+		if (msg_terminal[0] != '\0')
+		{
+			HAL_UART_Transmit(&huart2, (uint8_t*)msg_terminal, strlen(msg_terminal), 100);
 		}
 
 	  }
@@ -428,7 +429,17 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+	if (huart -> Instance == USART3) // Si el dato viende del arduino
+	{
+		rx_data = rx_byte;			// Guardamos el caracter
+		nueva_accion_atmega = 1; 	// Se avisa al while(1)
 
+		// Rehacer interrupción
+		HAL_UART_Receive_IT(&huart3, &rx_byte, 1);
+	}
+}
 
 /* USER CODE END 4 */
 
