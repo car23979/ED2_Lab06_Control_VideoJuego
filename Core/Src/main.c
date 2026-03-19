@@ -53,7 +53,8 @@ UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
-uint32_t adc_buffer[2]; // [0]: Eje Y, [1]: Eje X
+uint16_t valorEjeY = 0;
+uint16_t valorEjeX = 0;
 uint8_t rx_byte;		// Almacena el caracter recibido del arduino
 char msg_terminal[60];	// Buffer para enviar mensajes al monitor
 /* USER CODE END PV */
@@ -110,7 +111,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   // Iniciar el ADC en modo DMA para uso de los 2 canales
-  HAL_ADC_Start_DMA(&hadc1, adc_buffer, 2);
+//  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc_buffer, 2);
 
   // Iniciar la recepción de datos por interrupción del USART3
   HAL_UART_Receive_IT(&huart3, &rx_byte, 1);
@@ -121,30 +122,38 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  // Lógica Eje Y
-	  if (adc_buffer[0] > 3000)
-	  {
-		  sprintf(msg_terminal, "Control 1 (Joystick): \"Arriba\"r\n");
-		  HAL_UART_Transmit(&huart2, (uint8_t*)msg_terminal, strlen(msg_terminal), 10);
-	  } else if (adc_buffer[0] < 1000)
-	  {
-		  sprintf(msg_terminal, "Control 1 (Joystick): \"Abajo\"r\n");
-		  HAL_UART_Transmit(&huart2, (uint8_t*)msg_terminal, strlen(msg_terminal), 10);
-	  }
+	  // 1. Iniciar el ADC manualmente
+	      HAL_ADC_Start(&hadc1);
 
-	  // Lógica Eje X
-	  if (adc_buffer[1] > 3000)
-	  {
-		  sprintf(msg_terminal, "Control 1 (Joystick): \"Derecha\"r\n");
-		  HAL_UART_Transmit(&huart2, (uint8_t*)msg_terminal, strlen(msg_terminal), 10);
-	  } else if (adc_buffer[1] < 1000)
-	  {
-		  sprintf(msg_terminal, "Control 1 (Joystick): \"Izquierda\"r\n");
-		  HAL_UART_Transmit(&huart2, (uint8_t*)msg_terminal, strlen(msg_terminal), 10);
-	  }
+	      // 2. Esperar a que termine la conversión del Eje Y (Rank 1)
+	      if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK) {
+	          valorEjeY = HAL_ADC_GetValue(&hadc1);
+	      }
 
-	  HAL_Delay(150); // Delay para evitar saturar terminal
+	      // 3. Esperar a que termine la conversión del Eje X (Rank 2)
+	      if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK) {
+	          valorEjeX = HAL_ADC_GetValue(&hadc1);
+	      }
 
+	      // 4. Detener el ADC
+	      HAL_ADC_Stop(&hadc1);
+
+	      // --- Lógica de Impresión (Igual que antes pero con variables directas) ---
+	      if (valorEjeY > 2500) {
+	          sprintf(msg_terminal, "Control 1: \"Arriba\"\r\n");
+	      } else if (valorEjeY < 1000) {
+	          sprintf(msg_terminal, "Control 1: \"Abajo\"\r\n");
+	      } else if (valorEjeX > 2500) {
+	          sprintf(msg_terminal, "Control 1: \"Derecha\"\r\n");
+	      } else if (valorEjeX < 1000) {
+	          sprintf(msg_terminal, "Control 1: \"Izquierda\"\r\n");
+	      } else {
+	          // Opcional: imprimir centro para saber que funciona
+	          sprintf(msg_terminal, "Joystick en reposo\r\n");
+	      }
+
+	      HAL_UART_Transmit(&huart2, (uint8_t*)msg_terminal, strlen(msg_terminal), 100);
+	      HAL_Delay(250);
 
     /* USER CODE END WHILE */
 
@@ -230,7 +239,7 @@ static void MX_ADC1_Init(void)
   hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
   hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
   hadc1.Init.NbrOfConversion = 2;
-  hadc1.Init.DMAContinuousRequests = DISABLE;
+  hadc1.Init.DMAContinuousRequests = ENABLE;
   hadc1.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
   if (HAL_ADC_Init(&hadc1) != HAL_OK)
   {
@@ -241,7 +250,7 @@ static void MX_ADC1_Init(void)
   */
   sConfig.Channel = ADC_CHANNEL_0;
   sConfig.Rank = 1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
+  sConfig.SamplingTime = ADC_SAMPLETIME_28CYCLES;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
   {
     Error_Handler();
@@ -383,6 +392,8 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+
 
 /* USER CODE END 4 */
 
